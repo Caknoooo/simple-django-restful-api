@@ -24,3 +24,10 @@ class LocationList(generics.ListCreateAPIView):
 class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Location.objects.all()
   serializer_class = LocationSerializer
+
+class ItemByLocationList(generics.ListAPIView):
+  serializer_class = ItemSerializer
+
+  def get_queryset(self):
+    location = self.kwargs['pk']
+    return Item.objects.filter(itemLocation=location)
